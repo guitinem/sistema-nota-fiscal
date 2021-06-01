@@ -54,7 +54,22 @@ const optionsCep = {
 
         fetch(`https://viacep.com.br/ws/${cep_code}/json/`).then(function (response) {
             response.json().then(function (data) {
-                console.log(data)
+
+                if (data.erro) {
+                    $('#spin').hide();
+                    $('.error-message').show()
+                    $('.cep-form').val('')
+                    return
+                }
+
+                $('.error-message').hide()
+                document.getElementById('state').value = data.uf;
+                document.getElementById('city').value = data.localidade;
+                document.getElementById('street').value = data.logradouro;
+                document.getElementById('complement').value = data.complemento;
+                document.getElementById('district').value = data.bairro;
+
+                $('#spin').hide();
             });
         }).catch(function (err) {
             console.error('Failed retrieving cep information', err);

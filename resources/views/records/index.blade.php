@@ -42,7 +42,7 @@
 	                        <span class="check"><i class="fa fa-check"></i></span>
 	                    </div>
 	                    <div class=" text-left">
-	                        <input id="file" type="file" name="file" >
+	                        <input id="file" type="file" name="file" accept="image/png, image/jpeg">
 	                    </div>
 	                    <input type="hidden" name="hasfile" value="true" />
 	                </div>
@@ -78,6 +78,7 @@
 		                    <div class="">
 		                        <input type="text" id="cep" class="form-control" name="cep" placeholder="00000-000"  required>
 		                        <div id="spin" style="display: none;"><i class="fa fa-spinner fa-spin"></i></div>
+                                <div class="error-message">Cep informado não foi encontrado.</div>
 		                    </div>
 		                </div>
 		            </div>
@@ -86,7 +87,7 @@
 		                    <label class=" control-label">Estado</label>
 
 		                    <div class="">
-		                        <input type="text" id="state" class="form-control" name="state" placeholder="" >
+		                        <input type="text" id="state" class="form-control cep-form" name="state" placeholder="" >
 		                    </div>
 		                </div>
 		            </div>
@@ -95,7 +96,7 @@
 		                    <label class=" control-label">Cidade</label>
 
 		                    <div class="">
-		                        <input type="text" id="city" class="form-control" name="city" placeholder="" >
+		                        <input type="text" id="city" class="form-control cep-form" name="city" placeholder="" >
 		                    </div>
 		                </div>
 		            </div>
@@ -104,7 +105,7 @@
 		                    <label class=" control-label">Endereço</label>
 
 		                    <div class="">
-		                        <input type="text" id="street" class="form-control" name="street" placeholder=""  >
+		                        <input type="text" id="street" class="form-control cep-form" name="street" placeholder=""  >
 		                    </div>
 		                </div>
 		            </div>
@@ -113,7 +114,7 @@
 		                    <label class=" control-label">Número*</label>
 
 		                    <div class="">
-		                        <input type="text" id="number" class="form-control" name="number" placeholder=""  required>
+		                        <input type="text" id="number" class="form-control cep-form" name="number" placeholder=""  required>
 		                    </div>
 		                </div>
 		            </div>
@@ -122,7 +123,7 @@
 		                    <label class=" control-label">Complemento</label>
 
 		                    <div class="">
-		                        <input type="text" id="additional" class="form-control" name="additional" placeholder="" >
+		                        <input type="text" id="complement" class="form-control cep-form" name="complement" placeholder="" >
 		                    </div>
 		                </div>
 		            </div>
@@ -131,7 +132,7 @@
 		                    <label class=" control-label">Bairro</label>
 
 		                    <div class="">
-		                        <input type="text" id="county" class="form-control" name="county" placeholder="" >
+		                        <input type="text" id="district" class="form-control cep-form" name="district" placeholder="" >
 		                    </div>
 		                </div>
 		            </div>
