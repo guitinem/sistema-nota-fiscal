@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\Records\RecordsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Records\RecordsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('notas', [RecordsController::class, 'store'])->name('records.record');
 Route::get('notas', [RecordsController::class, 'index']);
+
+
+Route::group(['prefix' => 'dashboard'], function() {
+    /** Login Page */
+    Route::group(['prefix' =>'/login'], function() {
+        Route::get('', function () {
+            return view('dashboard.login');
+        })->name('dashboard.login');
+        Route::post('', [LoginController::class, 'authenticate'])->name('dashboard.logon');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/main', function () {
+            return view('welcome');
+        })->name('dashboard.main');
+    });
+});
