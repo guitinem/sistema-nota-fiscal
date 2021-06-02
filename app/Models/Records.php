@@ -35,7 +35,7 @@ class Records extends Model
         'cep',
         'state',
         'city',
-        'address',
+        'street',
         'district',
         'number',
         'complement',

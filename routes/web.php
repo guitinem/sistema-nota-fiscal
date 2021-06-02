@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Records\RecordsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post('notas', [RecordsController::class, 'store'])->name('records.record');
+Route::get('notas', [RecordsController::class, 'index']);
