@@ -8,9 +8,9 @@
     <link rel="shortcut icon" href="{{ url('assets/images/layout/favicon.png?v=2') }}">
 
     <!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/records/css/reset.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/records/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/records/css/style.css')}}" />
 
 	<!-- FONTS -->
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -35,28 +35,20 @@
 		    </div>
         </div>
     </main>
-    <footer>
-	    <nav>
-	        <div class="container">
-	            <ul>
-	                <li><a href="#">Regulamento</a></li>
-	                <li><a href="#">FAQ</a></li>
-	                <li><a href="#">Fale Conosco</a></li>
-	            </ul>
-	        </div>
-	    </nav>
+    <footer class="footer-success">
 	    <section id="copyright">
 	        <div class="container">
-	            <h2>Assinatura genérica</h2>
+	            <h2>Guilherme</h2>
 	        </div>
 	    </section>
 	</footer>
 
+
     <!-- JS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/mask.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script type="text/javascript" src={{asset("assets/records/js/lib/bootstrap.min.js") }}></script>
+	<script type="text/javascript" src={{asset("assets/records/js/lib/mask.js") }}></script>
+	<script type="text/javascript" src={{asset("assets/records/js/scripts/main.js") }}></script>
 
 </body>
 </html>
