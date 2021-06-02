@@ -9,6 +9,8 @@ $(document).ready(function () {
             init: function () {
                 this.initFeatures();
                 this.initCadastro();
+                this.validationInputFile();
+                this.formInsert();
             },
             initFeatures: function () {
 
@@ -31,11 +33,55 @@ $(document).ready(function () {
                     }, 500);
                 });
 
-                if ($('.overlay').length > 0) {
-                    $(document).on('change', '#file', function () {
-                        $('.overlay .check').show();
-                    });
-                }
+
+            },
+            validationInputFile: function () {
+                const validTypes = ['jpg', 'jpeg', 'png']
+
+
+                $('#file').change(function () {
+                    const fileInput = document.getElementById('file');
+                    const fileType = fileInput.value.split('.')[1];
+
+                    if (!validTypes.includes(fileType)) {
+                        $('#error-message-file').text('Apenas arquivos no formato PNG, JPG e JPGE')
+                        $('#error-message-file').show()
+                        fileInput.value = ''
+                        $('.overlay .check').hide();
+                        return
+                    }
+
+                    $('#error-message-file').hide()
+                    $('.overlay .check').show();
+                })
+            },
+            formInsert: function () {
+                $('#form-cadastro').submit(function(e) {
+                    let formStatus = true
+
+                    if ($('#file').val() == '') {
+                        $('html, body').animate({ scrollTop: 0 }, 'slow', function () {
+                            $('#error-message-file').text('Por favor, anexe a nota fiscal')
+                            $('#error-message-file').show()
+                        });
+                        formStatus = false
+                    } else {
+                        $('#error-message-file').hide()
+                    }
+
+                    if (!$('#terms').is(":checked")) {
+                        $('html, body').animate({ scrollTop: $(document).height() }, 'slow', function () {
+                            $('#error-message-terms').show()
+                        });
+                        formStatus = false
+                    } else {
+                        $('#error-message-terms').hide()
+                    }
+
+                    if (!formStatus) {
+                        e.preventDefault()
+                    }
+                });
             }
         }
     })();
@@ -57,12 +103,12 @@ const optionsCep = {
 
                 if (data.erro) {
                     $('#spin').hide();
-                    $('.error-message').show()
+                    $('#error-message-cep').show()
                     $('.cep-form').val('')
                     return
                 }
 
-                $('.error-message').hide()
+                $('#error-message-cep').hide()
                 document.getElementById('state').value = data.uf;
                 document.getElementById('city').value = data.localidade;
                 document.getElementById('street').value = data.logradouro;

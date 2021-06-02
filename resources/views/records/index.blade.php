@@ -28,7 +28,8 @@
     <main>
         <div class="container">
 
-            <form class="form-horizontal" role="form" method="POST" action="#" enctype="multipart/form-data">
+            <form class="form-horizontal" id="form-cadastro" role="form" method="POST" action="{{ route('records.record') }}" enctype="multipart/form-data">
+                @csrf
 
 	            <div class="form-group btns text-center">
 	                <button type="button" id="newForm" class="btn-green-filled">Novo cadastro</button>
@@ -38,11 +39,12 @@
 
 	                <div class="form-group{{ $errors->has('file') ? ' has-error' : '' }} text-center">
 	                    <div class="col-xs-12">
-	                        <label for="file" class="nf-add">Adicionar nota fiscal</label>
+	                        <label for="file" id="label-invoice" class="nf-add">Adicionar nota fiscal</label>
 	                        <span class="check"><i class="fa fa-check"></i></span>
 	                    </div>
+                        <div id="error-message-file" class="error-message"></div>
 	                    <div class=" text-left">
-	                        <input id="file" type="file" name="file" accept="image/png, image/jpeg">
+	                        <input id="file" type="file" name="invoice" accept="image/png, image/jpeg">
 	                    </div>
 	                    <input type="hidden" name="hasfile" value="true" />
 	                </div>
@@ -78,7 +80,7 @@
 		                    <div class="">
 		                        <input type="text" id="cep" class="form-control" name="cep" placeholder="00000-000"  required>
 		                        <div id="spin" style="display: none;"><i class="fa fa-spinner fa-spin"></i></div>
-                                <div class="error-message">Cep informado não foi encontrado.</div>
+                                <div id="error-message-cep" class="error-message">Cep informado não foi encontrado.</div>
 		                    </div>
 		                </div>
 		            </div>
@@ -139,9 +141,10 @@
 		            <div class="form-group text-center">
 		                <div class="checkbox">
 		                    <label>
-		                        <input type="checkbox" name="terms"> Li e concordo com o regulamento
+		                        <input type="checkbox" id="terms" name="terms"> Li e concordo com o regulamento
 		                    </label>
 		                </div>
+                        <div id="error-message-terms" class="error-message">Para enviar, é necessário concordar com os termos</div>
 		            </div>
 
 		            <div class="form-group text-center">
@@ -167,11 +170,8 @@
     <!-- JS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src={{asset("assets/records/js/lib/bootstrap.min.js") }}></script>
-	<script src={{asset("assets/records/js/lib/mask.js") }}></script>
-	<script src={{asset("assets/records/js/scripts/main.js") }}></script>
-    <script>
-
-    </script>
+	<script type="text/javascript" src={{asset("assets/records/js/lib/mask.js") }}></script>
+	<script type="text/javascript" src={{asset("assets/records/js/scripts/main.js") }}></script>
 
 </body>
 </html>
