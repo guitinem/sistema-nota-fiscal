@@ -21,11 +21,11 @@ class CreateRecordsTable extends Migration
             $table->string('cep', 15);
             $table->string('state', 30);
             $table->string('city', 30);
-            $table->string('address', 120);
+            $table->string('street', 120);
             $table->string('district', 80);
             $table->string('number', 10);
-            $table->string('complement', 80);
-            $table->boolean('status');
+            $table->string('complement', 80)->nullable();
+            $table->boolean('status')->nullable();
             $table->string('invoice', 150);
             $table->timestamps();
         });

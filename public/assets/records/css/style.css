@@ -347,4 +347,10 @@ footer #copyright {
     line-height: 15px;
     margin: 5px 0 0;
     display: none;
-  }
+}
+
+.footer-success {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
