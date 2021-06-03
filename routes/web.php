@@ -32,7 +32,9 @@ Route::group(['prefix' => 'dashboard'], function() {
 
     Route::middleware('auth')->group(function () {
         Route::get('/main', function () {
-            return view('welcome');
+            return view('dashboard.index');
         })->name('dashboard.main');
+
+        Route::get('/logout', [LoginController::class, 'logout'])->name('dashboard.logout');
     });
 });
