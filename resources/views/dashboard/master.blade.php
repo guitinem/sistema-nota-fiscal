@@ -116,13 +116,35 @@
 					</li>
 
                     {{-- Usuários LI --}}
-					<li id="sidebar-users" class="highlight hover">
-						<a href="{{ route('dashboard.user.index') }}">
-                            <i class="menu-icon fa fa-users"></i>
+                    <li  id="sidebar-users" class="hover">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-users"></i>
 							<span class="menu-text"> Usuários </span>
 
 							<b class="arrow fa fa-angle-down"></b>
 						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu can-scroll ace-scroll scroll-disabled" style="">
+							<li class="hover">
+								<a href="{{ route('dashboard.user.index') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Painel
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="hover">
+								<a href="{{ route('dashboard.user.create') }}">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Criar novo usuário
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+						</ul><div class="scroll-track scroll-detached no-track scroll-thin scroll-margin scroll-visible" style="display: none; top: 1px; left: 373px;"><div class="scroll-bar" style="top: 0px;"></div></div>
 					</li>
 
 				</ul><!-- /.nav-list -->

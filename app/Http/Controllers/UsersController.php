@@ -43,7 +43,45 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $isValid = $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+
+        if(!$isValid) {
+            return view('dashboard.user.create', [
+                'error_message' => 'Verifique os valores passados e tente novamente'
+            ]);
+        }
+
+
+        // Validando user admin
+        if($request->input('name') == 'admin' || $request->input('email') == 'teste.admin@gmail.com') {
+            return view('dashboard.user.create', [
+                'error_message' => 'O usuário admin e
+                    o email teste.admin@gmail.com estão reservados
+                    Utilize outras credenciais
+                    '
+            ]);
+        }
+
+        $isNewEmail = User::where('email', $request->input('email'))->get();
+
+        if(count($isNewEmail) != 0) {
+            return view('dashboard.user.create', [
+                'error_message' => 'Email já cadastrado no sistema!'
+            ]);
+        }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($request->input('password'));
+        User::create($input);
+
+        return view('dashboard.user.create', [
+            'success' => 'Cadastro concluído'
+        ]);
     }
 
     /**

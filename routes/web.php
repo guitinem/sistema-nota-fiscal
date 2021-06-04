@@ -47,6 +47,11 @@ Route::group(['prefix' => 'dashboard'], function() {
         // Users Resources
         Route::group(['prefix' => 'users'], function() {
             Route::get('', [UsersController::class, 'index'])->name('dashboard.user.index');
+
+            Route::post('create', [UsersController::class, 'store'])->name('dashboard.user.create');
+            Route::get('create', function(){
+                return view('dashboard.user.create');
+            })->name('dashboard.user.create');
         });
     });
 });
