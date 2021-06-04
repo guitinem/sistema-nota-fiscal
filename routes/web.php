@@ -36,5 +36,11 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::get('/main', [RecordsController::class, 'index'])->name('dashboard.main');
 
         Route::get('/logout', [LoginController::class, 'logout'])->name('dashboard.logout');
+
+        // Records Resources
+        Route::group(['prefix' => 'records'], function() {
+            Route::post('status/{id}', [RecordsController::class, 'updateStatus']);
+            Route::post('/{id}', [RecordsController::class, 'destroy']);
+        });
     });
 });
