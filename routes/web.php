@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Records\RecordsController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,11 @@ Route::group(['prefix' => 'dashboard'], function() {
         Route::group(['prefix' => 'records'], function() {
             Route::post('status/{id}', [RecordsController::class, 'updateStatus']);
             Route::post('/{id}', [RecordsController::class, 'destroy']);
+        });
+
+        // Users Resources
+        Route::group(['prefix' => 'users'], function() {
+            Route::get('', [UsersController::class, 'index'])->name('dashboard.user.index');
         });
     });
 });

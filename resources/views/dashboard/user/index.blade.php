@@ -8,13 +8,13 @@
         <!-- /.page-header -->
         <div class="page-header">
             <h1>
-                Registros de Notas Fiscais
+                Usuários do sistema
             </h1>
         </div>
         <!-- /.page-header -->
 
-        {{-- Tabela de notas fiscais --}}
-        @if(count($records) != 0)
+        {{-- Tabela de usuarios --}}
+        @if(count($users) != 0)
             <div class="row">
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
@@ -112,15 +112,15 @@
                     </div><!-- /.row -->
                 </div><!-- /.col -->
             </div>
-        {{-- Sem registro de notas fiscais --}}
+        {{-- Sem registro de usuarios --}}
         @else
             <div class="alert alert-block alert-info">
                 <p>
                     <strong>
-                        Sem registros de notas fiscais!
+                        Sem registros de usuários!
                     </strong>
                     <p>
-                        Clique no botão para registrar uma nota fiscal
+                        Clique no botão para registrar um
                     </p>
                 </p>
 
@@ -130,7 +130,6 @@
             </div>
         @endif
 
-        {{-- Tabela de notas fiscais --}}
     </div>
     <!-- /.page-content -->
 </div>
@@ -139,89 +138,11 @@
 
 @push('scripts')
 <script type="text/javascript">
-    // Ativando sidebar
-    $('#sidebar-records').addClass('active')
-    $('#sidebar-users').removeClass('active')
-
     const urlRecord = "{{url('/dashboard/records')}}";
 
-    /**
-     * Altera o status do registro da nota fiscal
-     *
-     * @param id Identificador no banco
-     * @param status Novo status do registro
-     *
-     */
-    function alteraStatus(id, status) {
-        bootbox.confirm({
-            message: `Deseja ${status ? 'aprovar' : 'reprovar'} está nota fiscal?`,
-            buttons: {
-                confirm: {
-                    label: 'Sim',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'Não',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result){
-                    let payload = new FormData();
-                    payload.append('status', status)
-                    payload.append("_token", "{{ csrf_token() }}")
-
-                    fetch(urlRecord + `/status/${id}`, {
-                        method: 'POST',
-                        body: payload
-                    })
-                    .then(response => response.json())
-                    .then(json => {
-                        $(`#tabela-invoice-status-${id}`).html(`
-                        ${status ? '<span class="label label-sm label-success">Aprovado</span>' :
-                        '<span class="label label-sm label-danger">Reprovado</span>'}`)
-                    })
-                }
-            }
-        });
-    }
-
-    /**
-     * Remove o registro do banco
-     *
-     * @param id Identificador no banco
-     */
-    function deletaRegistro(id) {
-        bootbox.confirm({
-                title: 'Deletar nota fiscal',
-            message: `Deseja deletar está nota fiscal?`,
-            buttons: {
-                confirm: {
-                    label: 'Sim',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'Não',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result){
-                    let payload = new FormData();
-                    payload.append("_token", "{{ csrf_token() }}")
-
-                    fetch(urlRecord + `/${id}`, {
-                        method: 'POST',
-                        body: payload
-                    })
-                    .then(response => response.json())
-                    .then(json => {
-                        console.log('ok')
-                    })
-                }
-            }
-        });
-    }
+    // Ativando sidebar
+    $('#sidebar-users').addClass('active')
+    $('#sidebar-records').removeClass('active')
 </script>
 @endpush
 
