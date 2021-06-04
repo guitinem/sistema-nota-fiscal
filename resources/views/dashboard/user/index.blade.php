@@ -55,15 +55,15 @@
                                                         </button>
 
                                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                                <a href="'{{ url("dashboard/users/edit/") . '/' . $user->id }}'"  class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+                                                                <a  onclick="openEditUser('{{ $user->id }}')" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
                                                                     <span class="orange">
-                                                                        <i class="fa fa-pencil-square-o bigger-120"></i>
+                                                                        <i class="ace-icon 	fa fa-pencil-square-o  bigger-120"></i>
                                                                     </span>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Delete">
+                                                                <a onclick="deletaRegistro('{{ $user->id }}')"  class="tooltip-success" data-rel="tooltip" title="" data-original-title="Delete">
                                                                     <span class="red">
                                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                                     </span>
@@ -108,10 +108,15 @@
 @push('scripts')
 <script type="text/javascript">
     const urlUserDelete = "{{url('/dashboard/users/delete')}}";
+    const urlUserEdit = "{{url('dashboard/users/edit/')}}";
 
     // Ativando sidebar
     $('#sidebar-users').addClass('active')
     $('#sidebar-records').removeClass('active')
+
+    function openEditUser(id) {
+        window.location= urlUserEdit + `/${id}`
+    }
 
     /**
      * Remove o registro do banco

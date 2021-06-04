@@ -78,7 +78,7 @@
 
                                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                             <li>
-                                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+                                                                <a onclick="alteraStatus('{{ $record->id }}', 1)" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
                                                                     <span class="blue">
                                                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                                                     </span>
@@ -86,16 +86,16 @@
                                                             </li>
 
                                                             <li>
-                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-                                                                    <span class="green">
+                                                                <a onclick="alteraStatus('{{ $record->id }}', 0)" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
+                                                                    <span class="red">
                                                                         <i class="ace-icon fa fa-times bigger-120"></i>
                                                                     </span>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
-                                                                    <span class="red">
+                                                                <a onclick="deletaRegistro('{{ $record->id }}')" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                                                    <span class="black">
                                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                                     </span>
                                                                 </a>
