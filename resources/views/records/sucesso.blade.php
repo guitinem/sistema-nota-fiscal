@@ -23,7 +23,7 @@
             <a href="#" class="logo">
                 Logo
             </a>
-            <h1>Cadastro</h1>
+            <h1>Cadastro<p>Nota Fiscal</p></h1>
         </div>
     </header>
 
@@ -33,6 +33,10 @@
             <div class="text-center">
 		        <span class="success">Cadastro realizado com sucesso!</span>
 		    </div>
+
+            <div class="form-group btns text-center">
+                <button type="submit" onclick="window.location='{{ url("notas/") }}'" class="btn-green-filled">Novo cadastro</button>
+            </div>
         </div>
     </main>
     <footer class="footer-success">

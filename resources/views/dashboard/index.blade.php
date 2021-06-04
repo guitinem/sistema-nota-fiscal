@@ -40,7 +40,7 @@
                                             <td class="hidden-480" >{{ $record->cpf }}</td>
                                             <td class="hidden-480">{{ $record->email }}</td>
                                             <td class="text-center">
-                                                <button class="btn btn-grey btn-xs">
+                                                <button onclick="openInvoiceImage('{{ $record->invoice }}')" class="btn btn-grey btn-xs">
                                                     <i class="ace-icon glyphicon glyphicon-picture bigger-120"></i>
                                                 </button>
                                             </td>
@@ -110,6 +110,18 @@
                             </table>
                         </div><!-- /.span -->
                     </div><!-- /.row -->
+
+                    {{-- Nota Fiscal Modal --}}
+                    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <img src="" class="imagepreview" style="width: 100%;" >
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- /.col -->
             </div>
         {{-- Sem registro de notas fiscais --}}
@@ -144,7 +156,8 @@
     $('#sidebar-users').removeClass('active')
 
     const urlRecord = "{{url('/dashboard/records')}}";
-
+    const urlImages = "{{ asset('storage/images/invoice') }}"
+    console.log(urlImages);
     /**
      * Altera o status do registro da nota fiscal
      *
@@ -184,6 +197,11 @@
                 }
             }
         });
+    }
+
+    function openInvoiceImage(imagePath) {
+        $('.imagepreview').attr('src', urlImages + `/${imagePath}`);
+		$('#imagemodal').modal('show');
     }
 
     /**
