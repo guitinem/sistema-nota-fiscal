@@ -55,6 +55,8 @@ Route::group(['prefix' => 'dashboard'], function() {
 
             Route::get('edit/{id}', [UsersController::class, 'edit'])->name('dashboard.user.edit');
             Route::post('edit/{id}', [UsersController::class, 'update'])->name('dashboard.user.edit');
+
+            Route::post('delete/{id}', [UsersController::class, 'destroy'])->name('dashboard.user.delete');
         });
     });
 });
