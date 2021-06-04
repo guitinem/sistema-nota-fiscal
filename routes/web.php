@@ -18,7 +18,9 @@ use App\Http\Controllers\Records\RecordsController;
 */
 
 Route::post('notas', [RecordsController::class, 'store'])->name('records.record');
-Route::get('notas', [RecordsController::class, 'index']);
+Route::get('notas', function() {
+    return view('records.index');
+})->name('records');
 
 
 Route::group(['prefix' => 'dashboard'], function() {
@@ -31,8 +33,8 @@ Route::group(['prefix' => 'dashboard'], function() {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::get('/main', function () {
-            return view('welcome');
-        })->name('dashboard.main');
+        Route::get('/main', [RecordsController::class, 'index'])->name('dashboard.main');
+
+        Route::get('/logout', [LoginController::class, 'logout'])->name('dashboard.logout');
     });
 });

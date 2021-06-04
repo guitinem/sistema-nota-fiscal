@@ -17,7 +17,8 @@ class RecordsController extends Controller
      */
     public function index()
     {
-        return view('records.index');
+        $records = Records::all();
+        return view('dashboard.index', ['records' => $records]);
     }
 
     /**
