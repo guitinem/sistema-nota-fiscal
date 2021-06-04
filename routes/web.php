@@ -52,6 +52,9 @@ Route::group(['prefix' => 'dashboard'], function() {
             Route::get('create', function(){
                 return view('dashboard.user.create');
             })->name('dashboard.user.create');
+
+            Route::get('edit/{id}', [UsersController::class, 'edit'])->name('dashboard.user.edit');
+            Route::post('edit/{id}', [UsersController::class, 'update'])->name('dashboard.user.edit');
         });
     });
 });

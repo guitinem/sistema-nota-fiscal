@@ -50,7 +50,7 @@ class UsersController extends Controller
             'password' => ['required']
         ]);
 
-        if(!$isValid) {
+        if (!$isValid) {
             return view('dashboard.user.create', [
                 'error_message' => 'Verifique os valores passados e tente novamente'
             ]);
@@ -58,7 +58,7 @@ class UsersController extends Controller
 
 
         // Validando user admin
-        if($request->input('name') == 'admin' || $request->input('email') == 'teste.admin@gmail.com') {
+        if ($request->input('name') == env('ADMIN_NAME', 'admin') || $request->input('email') == env('ADMIN_EMAIL', 'teste.admin@gmail.com')) {
             return view('dashboard.user.create', [
                 'error_message' => 'O usuário admin e
                     o email teste.admin@gmail.com estão reservados
@@ -69,7 +69,7 @@ class UsersController extends Controller
 
         $isNewEmail = User::where('email', $request->input('email'))->get();
 
-        if(count($isNewEmail) != 0) {
+        if (count($isNewEmail) != 0) {
             return view('dashboard.user.create', [
                 'error_message' => 'Email já cadastrado no sistema!'
             ]);
@@ -103,7 +103,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('dashboard.user.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -115,7 +119,52 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userToUpdate = User::find($id);
+        $dontCheckEmail = false;
+
+        if (!$request->input('name') && !$request->input('email')) {
+            return view('dashboard.user.edit', [
+                'error_message' => 'Email já cadastrado no sistema!',
+                'user' => $userToUpdate
+            ]);
+        }
+
+        // Validando valores de usuario admin
+        if ($request->input('name') == env('ADMIN_NAME', 'admin') || $request->input('email') == env('ADMIN_EMAIL', 'teste.admin@gmail.com')) {
+            return view('dashboard.user.edit', [
+                'error_message' => 'O usuário admin e
+                    o email teste.admin@gmail.com estão reservados
+                    Utilize outras credenciais',
+                'user' =>  $userToUpdate
+            ]);
+        }
+
+        if ($userToUpdate->email == $request->input('email')) {
+            $userToUpdate->name = $request->input('name');
+            $dontCheckEmail = true;
+        }
+
+        if (!$dontCheckEmail) {
+            // Validando email
+            $isNewEmail = User::where('email', $request->input('email'))->get();
+
+            if (count($isNewEmail) != 0) {
+                return view('dashboard.user.edit', [
+                    'error_message' => 'Email já cadastrado no sistema!',
+                    'user' => $userToUpdate
+                ]);
+            }
+        }
+
+        $userToUpdate->name = $request->input('name');
+        $userToUpdate->email = $request->input('email');
+
+        $userToUpdate->save();
+
+        return view('dashboard.user.edit', [
+            'success' => 'Usuário Alterado com sucesso',
+            'user' => $userToUpdate
+        ]);
     }
 
     /**

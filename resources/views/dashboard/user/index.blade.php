@@ -25,46 +25,24 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th class="hidden-480">CPF</th>
-                                        <th class="hidden-480">Email</th>
-                                        <th>Nota Fiscal</th>
-                                        <th>Status</th>
+                                        <th>Email</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($records as $record)
-                                        <tr id="tabela-invoice-{{ $record->id }}">
-                                            <td>{{ $record->name }}</td>
-                                            <td class="hidden-480" >{{ $record->cpf }}</td>
-                                            <td class="hidden-480">{{ $record->email }}</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-grey btn-xs">
-                                                    <i class="ace-icon glyphicon glyphicon-picture bigger-120"></i>
-                                                </button>
-                                            </td>
-                                            <td id="tabela-invoice-status-{{ $record->id }}">
-                                                @if (is_null($record->status))
-                                                    <span class="label label-sm label-warning">Sem avaliação</span>
-                                                @elseif($record->status)
-                                                    <span class="label label-sm label-success">Aprovado</span>
-                                                @else
-                                                <span class="label label-sm label-danger">Reprovado</span>
-                                                @endif
-                                            </td>
+                                    @foreach ($users as $user)
+                                        <tr id="tabela-invoice-{{ $user->id }}">
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
                                             <td class="text-center">
                                                 {{-- Menu de acoes tela cheia --}}
                                                 <div class="hidden-sm hidden-xs btn-group">
-                                                    <button class="btn btn-xs btn-success" onclick="alteraStatus('{{ $record->id }}', 1)">
-                                                        <i class="ace-icon fa fa-check bigger-120"></i>
+                                                    <button class="btn btn-xs btn-warning" onclick="window.location='{{ url("dashboard/users/edit/") . '/' . $user->id }}'">
+                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                     </button>
 
-                                                    <button class="btn btn-xs btn-danger" onclick="alteraStatus('{{ $record->id }}', 0)">
-                                                        <i class="ace-icon fa fa-times bigger-120"></i>
-                                                    </button>
-
-                                                    <button class="btn btn-xs btn-warning" onclick="deletaRegistro('{{ $record->id }}')">
+                                                    <button class="btn btn-xs btn-danger" onclick="deletaRegistro('{{ $user->id }}')">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </button>
                                                 </div>
@@ -79,22 +57,14 @@
                                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                             <li>
                                                                 <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
-                                                                    <span class="blue">
-                                                                        <i class="ace-icon fa fa-check bigger-120"></i>
+                                                                    <span class="orange">
+                                                                        <i class="fa fa-pencil-square-o bigger-120"></i>
                                                                     </span>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-                                                                    <span class="green">
-                                                                        <i class="ace-icon fa fa-times bigger-120"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Delete">
                                                                     <span class="red">
                                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                                     </span>
