@@ -15,7 +15,7 @@
 
         {{-- Tabela de usuarios --}}
         @if(count($users) != 0)
-            <div class="row">
+            <div id="main-content-users" class="row">
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
                     <div class="row">
@@ -30,9 +30,9 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="tbody-users">
                                     @foreach ($users as $user)
-                                        <tr id="tabela-invoice-{{ $user->id }}">
+                                        <tr id="tabela-users-{{ $user->id }}">
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td class="text-center">
@@ -55,8 +55,7 @@
                                                         </button>
 
                                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                            <li>
-                                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+                                                                <a href="'{{ url("dashboard/users/edit/") . '/' . $user->id }}'"  class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
                                                                     <span class="orange">
                                                                         <i class="fa fa-pencil-square-o bigger-120"></i>
                                                                     </span>
@@ -95,7 +94,7 @@
                 </p>
 
                 <p>
-                    <button type="button" onclick="window.location='{{ url("notas") }}'" class="btn btn-sm btn-info"><i class="ace-icon glyphicon glyphicon-pencil"></i> Registrar</button>
+                    <button type="button" onclick="window.location='{{ url("dashboard/users/create") }}'" class="btn btn-sm btn-info"><i class="ace-icon glyphicon glyphicon-pencil"></i> Registrar</button>
                 </p>
             </div>
         @endif
@@ -108,11 +107,67 @@
 
 @push('scripts')
 <script type="text/javascript">
-    const urlRecord = "{{url('/dashboard/records')}}";
+    const urlUserDelete = "{{url('/dashboard/users/delete')}}";
 
     // Ativando sidebar
     $('#sidebar-users').addClass('active')
     $('#sidebar-records').removeClass('active')
+
+    /**
+     * Remove o registro do banco
+     *
+     * @param id Identificador no banco
+     */
+     function deletaRegistro(id) {
+        bootbox.confirm({
+                title: 'Deletar usuário?',
+            message: `Deseja deletar este usuário?`,
+            buttons: {
+                confirm: {
+                    label: 'Sim',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Não',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result){
+                    let payload = new FormData();
+                    payload.append("_token", "{{ csrf_token() }}")
+
+                    fetch(urlUserDelete + `/${id}`, {
+                        method: 'POST',
+                        body: payload
+                    })
+                    .then(() => {
+                        $(`#tabela-users-${id}`).remove();
+                        if ($('#tbody-users').children().length == 0) {
+                            $('#main-content-users').html('');
+                            $('#main-content-users').html(`
+                                <div class="alert alert-block alert-info">
+                                    <p>
+                                        <strong>
+                                            Sem registros de usuários!
+                                        </strong>
+                                        <p>
+                                            Clique no botão para registrar um
+                                        </p>
+                                    </p>
+
+                                    <p>
+                                        <button type="button" onclick="window.location='{{ url("dashboard/users/create") }}'" class="btn btn-sm btn-info"><i class="ace-icon glyphicon glyphicon-pencil"></i> Registrar</button>
+                                    </p>
+                                </div>
+                            `);
+                        }
+                        bootbox.alert("Usuário deletado com sucesso!");
+                    })
+                }
+            }
+        });
+    }
 </script>
 @endpush
 

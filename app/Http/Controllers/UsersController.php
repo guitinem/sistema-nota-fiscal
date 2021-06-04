@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -19,7 +20,8 @@ class UsersController extends Controller
         // Remove Admin Master
         $users = DB::table('users')->where([
             ['name', '<>', 'admin'],
-            ["email", '<>', "teste.admin@gmail.com"]
+            ["email", '<>', "teste.admin@gmail.com"],
+            ['id', '<>', Auth::user()->id]
         ])->get();
 
         return view('dashboard.user.index', ['users' => $users]);
@@ -175,6 +177,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'error' => 'user not found'
+            ], 404);
+        }
+
+        $user->delete();
+
+        return response('', 204);
     }
 }

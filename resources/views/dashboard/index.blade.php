@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <!-- PAGE CONTENT BEGINS -->
-                    <div class="row">
+                    <div id="main-content-users" class="row">
                         <div class="col-xs-12">
                             <table id="simple-table" class="table table-striped table-bordered table-hover">
                                 @csrf
@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="tbody-invoice">
                                     @foreach ($records as $record)
                                         <tr id="tabela-invoice-{{ $record->id }}">
                                             <td>{{ $record->name }}</td>
@@ -214,9 +214,28 @@
                         method: 'POST',
                         body: payload
                     })
-                    .then(response => response.json())
-                    .then(json => {
-                        console.log('ok')
+                    .then(() => {
+                        $(`#tabela-invoice-${id}`).remove();
+                        if ($('#tbody-invoice').children().length == 0) {
+                            $('#main-content-users').html('');
+                            $('#main-content-users').html(`
+                            <div class="alert alert-block alert-info">
+                                <p>
+                                    <strong>
+                                        Sem registros de notas fiscais!
+                                    </strong>
+                                    <p>
+                                        Clique no botão para registrar uma nota fiscal
+                                    </p>
+                                </p>
+
+                                <p>
+                                    <button type="button" onclick="window.location='{{ url("notas") }}'" class="btn btn-sm btn-info"><i class="ace-icon glyphicon glyphicon-pencil"></i> Registrar</button>
+                                </p>
+                            </div>
+                            `);
+                        }
+                        bootbox.alert("Nota Fiscal deletada com sucesso!");
                     })
                 }
             }
