@@ -21,7 +21,9 @@
             <a href="#" class="logo">
                 Logo
             </a>
-            <h1>Cadastro</h1>
+            <h1>Cadastro
+                <p>Nota Fiscal</p>
+            </h1>
         </div>
     </header>
 
