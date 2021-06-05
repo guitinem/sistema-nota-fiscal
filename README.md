@@ -17,8 +17,9 @@ Já como admnistrado:
 $ composer install
 $ cp .env.example .env
 $ php artisan migrate #antes de rodar este comando verifique sua configuracao com banco em .env
-$ php artisan serve
 $ php artisan db:seed #para gerar os seeders, dados de teste
+$ php artisan key:generate
+$ php artisan serve
 ```
 Acesssar pela url: http://localhost:8000/dashboard/login
 
