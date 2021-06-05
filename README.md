@@ -31,3 +31,4 @@ Acesssar pela url: http://localhost:8000/dashboard/login
 ## Pré-requisitos
 - PHP >= 7.3.0
 - Laravel >= 8.X
+- Composer >= 1.10.1
